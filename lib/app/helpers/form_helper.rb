@@ -6,7 +6,7 @@ module JqueryDatepicker
     include ActionView::Helpers::JavaScriptHelper
 
     # Mehtod that generates datepicker input field inside a form
-    def datepicker(object_name, method, options = {})
+    def datepicker(object_name, object, method, options = {})
       input_tag =  JqueryDatepicker::InstanceTag.new(object_name, method, self, options.delete(:object))
       dp_options, tf_options =  input_tag.split_options(options)
       if tf_options.has_key?(:value)
@@ -16,7 +16,7 @@ module JqueryDatepicker
       elsif tf_options.has_key?(:prompt) and tf_options[:prompt]
         tf_options[:value] = "Select date"
       else
-        method_value =  @object.send(method)
+        method_value = object.send(method)
         if method_value.present? and method_value.is_a?(Date)
           tf_options[:value] = method_value.strftime('%m/%d/%Y')
         else
@@ -39,7 +39,7 @@ end
 
 module JqueryDatepicker::FormBuilder
   def datepicker(method, options = {})
-    @template.datepicker(@object_name, method, objectify_options(options))
+    @template.datepicker(@object_name, @object, method, objectify_options(options))
   end
 end
 
