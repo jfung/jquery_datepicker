@@ -22,7 +22,7 @@ module JqueryDatepicker
         else
           tf_options[:value] = Date.today.strftime('%m/%d/%Y')
         end
-        if dp_options.has_key(:dateFormat)
+        if dp_options.has_key?(:dateFormat)
           tf_options[:value] = input_tag.format_date(tf_options[:value], String.new(dp_options[:dateFormat]))
         end
       end
