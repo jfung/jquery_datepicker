@@ -14,7 +14,7 @@ module JqueryDatepicker
           tf_options[:value] = input_tag.format_date(tf_options[:value], String.new(dp_options[:dateFormat]))
         end
       else
-        method_value = object.send(method)
+        method_value = object.send(method).to_date rescue nil
         if method_value.present? and method_value.is_a?(Date)
           tf_options[:value] = method_value.strftime('%m/%d/%Y')
         elsif tf_options.has_key?(:prompt) and tf_options[:prompt]
